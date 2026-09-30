@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Public Convex deployment URL baked into the client bundle (not a secret)
+      VITE_CONVEX_URL: ${{ vars.VITE_CONVEX_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npx tsc -b
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy preview (pull requests)
+        if: github.event_name == 'pull_request'
+        run: >
+          npx netlify-cli@latest deploy --dir=dist --site "$NETLIFY_SITE_ID"
+          --alias "pr-${{ github.event.number }}"
+          --message "PR #${{ github.event.number }} preview"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
+
+      - name: Deploy production (main)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: >
+          npx netlify-cli@latest deploy --prod --dir=dist --site "$NETLIFY_SITE_ID"
+          --message "Deploy ${{ github.sha }}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
