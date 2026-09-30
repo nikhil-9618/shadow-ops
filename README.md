@@ -33,11 +33,10 @@ Answer → Observed Pattern → Workflow → Historical Cases → Memories
 
 Nothing is asserted without a memory behind it.
 
-> **Note on "Hindsight":** the app currently refers to its memory engine as
-> "Hindsight" in the UI, but this is a placeholder — the memory data you see
-> (12,842 records, patterns, evidence) is mock data built into the frontend,
-> not a live connection to an external service. There is no Hindsight API key
-> configured anywhere in this project.
+> **Note on "Hindsight":** the memory engine is a live Hindsight connection
+> (Vectorize) configured by an administrator in-app — admins set or rotate the
+> API key on the System Health page ("Manage Keys"). The key is stored in the
+> Convex deployment's environment, never in this repository.
 
 ---
 
@@ -78,17 +77,19 @@ shadow-ops-main/
 - **Framer Motion** — animations
 - **Three.js** — the 3D organization view
 - **Convex** — backend database, functions, and authentication
-- **Convex Auth** — email OTP + anonymous sign-in
+- **Convex Auth** — email OTP sign-in + admin-password elevation
+- **Hindsight (Vectorize)** — organizational memory engine
+- **Netlify** — hosting, with GitHub Actions–driven deploys
 
 ---
 
 ## Getting started
 
-This project uses **bun** as its package manager.
+This project uses **npm** as its package manager.
 
 ```bash
 # 1. Install dependencies
-bun install
+npm install
 
 # 2. Set up environment variables (see below)
 cp .env.example .env.local
@@ -97,7 +98,7 @@ cp .env.example .env.local
 npx convex dev
 
 # 4. In a separate terminal, start the frontend
-bun run dev
+npm run dev
 ```
 
 The app will be available at `http://localhost:5173`.
@@ -106,11 +107,11 @@ The app will be available at `http://localhost:5173`.
 
 | Command | What it does |
 |---|---|
-| `bun run dev` | Start the frontend in development mode |
-| `bun run build` | Type-check and build for production |
-| `bun run preview` | Preview the production build locally |
-| `bun run lint` | Run ESLint |
-| `bun run format` | Format all files with Prettier |
+| `npm run dev` | Start the frontend in development mode |
+| `npm run build` | Type-check and build for production |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
+| `npm run format` | Format all files with Prettier |
 
 ---
 
@@ -177,14 +178,29 @@ hardcoding hex values in components.
 
 ## Deployment
 
-The production build is served by a small Deno static server (`main.ts`) that
-serves `dist/` and falls back to `index.html` for client-side routing. Build
-with `bun run build` before deploying.
-```renced as `Doc<"TableName">`.
-- Keep schemaValidation to false in the schema file.
-- You must correctly type your code so that it passes the type checker.
-- You must handle null / undefined cases of your convex queries for both frontend and backend, or else it will throw an error that your data could be null or undefined.
-- Always use the `@/folder` path, with `@/convex/folder/file.ts` syntax for importing convex files.
-- This includes importing generated files like `@/convex/_generated/server`, `@/convex/_generated/api`
-- Remember to import functions like useQuery, useMutation, useAction, etc. from `convex/react`
-- NEVER have return type validators.
+Live site: **https://shadow-0ps.netlify.app** (Netlify site `shadow-0ps`).
+
+Every push runs [.github/workflows/ci.yml](.github/workflows/ci.yml), which
+steps through:
+
+1. `npx tsc -b` typecheck
+2. `npm run build`
+3. **Deploy production to Netlify** — only on pushes to `main`
+
+Every pull request gets a **preview deployment** (alias `pr-<number>`) so you
+can click through changes before merging. `main` is branch-protected: the CI
+check must pass before merging, and GitHub secret scanning + push protection
+are enabled.
+
+Manual deploy from a linked checkout is still possible:
+
+```bash
+npm run build
+npx netlify-cli@latest deploy --prod --dir=dist
+```
+
+The client reads the Convex deployment URL from `VITE_CONVEX_URL` at build
+time (set in `netlify.toml` and as an Actions repo variable). Secrets such as
+`NETLIFY_AUTH_TOKEN` live in GitHub Actions secrets; backend secrets (JWT
+keys, admin config, Hindsight key) live in the Convex deployment's
+environment and are managed by admins in-app.
