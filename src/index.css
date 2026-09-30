@@ -1,0 +1,300 @@
+/* DO NOT CHANGE */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@custom-variant dark (&:is(.dark *));
+
+/* DO NOT CHANGE */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ShadowOps brand tokens */
+@theme inline {
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-memory: var(--memory);
+  --color-discovery: var(--discovery);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-critical: var(--critical);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* CHANGE VALUES FOR THEME — ShadowOps dark enterprise */
+:root {
+  --radius: 0.625rem;
+  --background: #080B12;
+  --foreground: #E7ECF5;
+  --card: #111722;
+  --card-foreground: #E7ECF5;
+  --popover: #0D111A;
+  --popover-foreground: #E7ECF5;
+  --primary: #5865F2;
+  --primary-foreground: #FFFFFF;
+  --secondary: #161E2E;
+  --secondary-foreground: #C9D3E8;
+  --muted: #10151F;
+  --muted-foreground: #8A94A8;
+  --accent: #1A2334;
+  --accent-foreground: #E7ECF5;
+  --destructive: #EF4444;
+  --border: #202938;
+  --input: #202938;
+  --ring: #5865F2;
+  --chart-1: #5865F2;
+  --chart-2: #22D3EE;
+  --chart-3: #6366F1;
+  --chart-4: #3B82F6;
+  --chart-5: #22C55E;
+  --sidebar: #0D111A;
+  --sidebar-foreground: #C9D3E8;
+  --sidebar-primary: #5865F2;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #161E2E;
+  --sidebar-accent-foreground: #E7ECF5;
+  --sidebar-border: #202938;
+  --sidebar-ring: #5865F2;
+  --surface: #0D111A;
+  --elevated: #111722;
+  --memory: #6366F1;
+  --discovery: #22D3EE;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --critical: #EF4444;
+}
+
+.dark {
+  --radius: 0.625rem;
+  --background: #080B12;
+  --foreground: #E7ECF5;
+  --card: #111722;
+  --card-foreground: #E7ECF5;
+  --popover: #0D111A;
+  --popover-foreground: #E7ECF5;
+  --primary: #5865F2;
+  --primary-foreground: #FFFFFF;
+  --secondary: #161E2E;
+  --secondary-foreground: #C9D3E8;
+  --muted: #10151F;
+  --muted-foreground: #8A94A8;
+  --accent: #1A2334;
+  --accent-foreground: #E7ECF5;
+  --destructive: #EF4444;
+  --border: #202938;
+  --input: #202938;
+  --ring: #5865F2;
+  --chart-1: #5865F2;
+  --chart-2: #22D3EE;
+  --chart-3: #6366F1;
+  --chart-4: #3B82F6;
+  --chart-5: #22C55E;
+  --sidebar: #0D111A;
+  --sidebar-foreground: #C9D3E8;
+  --sidebar-primary: #5865F2;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #161E2E;
+  --sidebar-accent-foreground: #E7ECF5;
+  --sidebar-border: #202938;
+  --sidebar-ring: #5865F2;
+  --surface: #0D111A;
+  --elevated: #111722;
+  --memory: #6366F1;
+  --discovery: #22D3EE;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --critical: #EF4444;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    font-family: var(--font-sans);
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not([disabled]),
+  [role="button"]:not([disabled]) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: rgb(88 101 242 / 0.35);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #202938;
+    border-radius: 8px;
+    border: 2px solid #080B12;
+  }
+}
+
+/* ---------- ShadowOps logo animations ---------- */
+
+.so-logo .so-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: so-node-pulse 2.2s ease-in-out infinite;
+}
+@keyframes so-node-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+}
+
+.so-logo .so-energy {
+  stroke-dasharray: 3 14;
+  animation: so-energy-flow 1.2s linear infinite;
+}
+@keyframes so-energy-flow {
+  to {
+    stroke-dashoffset: -34;
+  }
+}
+
+.so-logo .so-conn {
+  animation: so-conn-pulse 2s ease-in-out infinite;
+}
+.so-logo .so-conn-2 {
+  animation-delay: 0.4s;
+}
+.so-logo .so-conn-3 {
+  animation-delay: 0.8s;
+}
+.so-logo .so-conn-4 {
+  animation-delay: 1.2s;
+}
+.so-logo .so-conn-5 {
+  animation-delay: 1.6s;
+}
+@keyframes so-conn-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .so-logo .so-node,
+  .so-logo .so-energy,
+  .so-logo .so-conn {
+    animation: none !important;
+  }
+}
+
+@keyframes so-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- ShadowOps visual language ---------- */
+
+@keyframes so-dash-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+.so-flow {
+  stroke-dasharray: 7 7;
+  animation: so-dash-flow 1.4s linear infinite;
+}
+.so-flow-slow {
+  stroke-dasharray: 4 10;
+  animation: so-dash-flow 3.4s linear infinite;
+}
+
+@keyframes so-pulse-dot {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+.so-pulse {
+  animation: so-pulse-dot 2.2s ease-in-out infinite;
+}
+
+.so-grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.so-radial-fade {
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 32%, black 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 32%, black 25%, transparent 78%);
+}
+
+.so-glow-memory {
+  box-shadow:
+    0 0 0 1px rgb(99 102 241 / 0.35),
+    0 0 24px rgb(99 102 241 / 0.22);
+}
+.so-glow-discovery {
+  box-shadow:
+    0 0 0 1px rgb(34 211 238 / 0.4),
+    0 0 24px rgb(34 211 238 / 0.2);
+}
+
+.so-gradient-text {
+  background: linear-gradient(100deg, #8B93F8 0%, #5865F2 45%, #22D3EE 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

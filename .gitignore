@@ -1,0 +1,21 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+src/convex/_generated
+
+# Environment / secrets — NEVER commit
+.env*
+!.env.example
+
+# Bundled source archive (contains .env.keys — must never be committed)
+shadowops-source.zip
+
+# Netlify local state
+.netlify
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log
